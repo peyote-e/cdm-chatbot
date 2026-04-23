@@ -34,18 +34,20 @@ docker compose up --build -d
 docker compose exec -T api python scripts/ingest.py
 ```
 
-## Run API Checks
-
+## Run API 
+just vector search for RAG
 ```bash
-curl http://localhost:8000/health
+curl -s -X POST http://localhost:8000/query/vector \
+  -H "Content-Type: application/json" \
+  -d '{"question":"What fields does the Bank entity have?"}'
 ```
-
+normal RAG or + GraphRAG
 ```bash
 curl -s -X POST http://localhost:8000/query/hybrid \
   -H "Content-Type: application/json" \
   -d '{"question":"What fields does the Bank entity have?"}'
 ```
-
+Compares both results by showing both answers
 ```bash
 curl -s -X POST http://localhost:8000/query/compare \
   -H "Content-Type: application/json" \
